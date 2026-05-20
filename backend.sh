@@ -63,7 +63,7 @@ VALIDATE $? "Extracked backend code"
 npm install &>>$LOGFILE
 VALIDATE $? "Installing nodejs dependencies"
 
-cp /home/ec2-user/expense-shell-script/backend.service /etc/systemd/system/backend.service &>>$LOGFILE
+cp /home/ec2-user/expense-shellscript/backend.service /etc/systemd/system/backend.service &>>$LOGFILE
 VALIDATE $? "Copied backend service"
 
 systemctl daemon-reload &>>$LOGFILE
@@ -78,13 +78,13 @@ VALIDATE $? "Enabling backend"
 dnf install mysql -y &>>$LOGFILE
 VALIDATE $? "Installing Mysql Client"
 
-# mysql -h db.lithesh.shop -uroot -p${mysql_root_password} < /app/schema/backend.sql &>>$LOGFILE
+# mysql -h mysql.lithesh.shop -uroot -p${mysql_root_password} < /app/schema/backend.sql &>>$LOGFILE
 # VALIDATE $? "Mysql - Loading database schema"
 
-mysql -h db.lithesh.shop -uroot -p${mysql_root_password} -e 'use transactions;' &>>$LOGFILE
+mysql -h mysql.lithesh.shop -uroot -p${mysql_root_password} -e 'use transactions;' &>>$LOGFILE
 if [ $? -ne 0 ] 
 then
-  mysql -h db.lithesh.shop -uroot -p${mysql_root_password} < /app/schema/backend.sql &>>$LOGFILE
+  mysql -h mysql.lithesh.shop -uroot -p${mysql_root_password} < /app/schema/backend.sql &>>$LOGFILE
   VALIDATE $? "mysql schema loading..."
 else
   echo -e "Schema already loaded... $Y SKIPPING $N" 

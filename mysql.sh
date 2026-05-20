@@ -44,7 +44,7 @@ VALIDATE $? "Starting the MySQL server"
 # mysql_secure_installation --set-root-pass ExpenseApp@1 &>>$LOGFILE
 # VALIDATE $? "Setting up Root Password"
 
-mysql -h db.lithesh.shop -uroot -p${mysql_root_password} -e 'show databases;' &>>$LOGFILE
+mysql -h mysql.lithesh.shop -uroot -p${mysql_root_password} -e 'show databases;' &>>$LOGFILE
 if [ $? -ne 0 ] 
 then
    mysql_secure_installation --set-root-pass ${mysql_root_password} &>>$LOGFILE
